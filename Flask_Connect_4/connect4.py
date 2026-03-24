@@ -2,6 +2,10 @@
 # has a Game dataclass that acts as an immutable version of a game
 from dataclasses import dataclass
 
+RED = 1
+YELLOW = 0
+
+
 @dataclass(frozen=True)
 class Game:
     red_player : str = None
@@ -9,7 +13,7 @@ class Game:
     red_username : str = None
     yellow_username : str = None
     board : tuple = ((None for x in range(7)) for x in range(6))
-    turn : int = 1
+    turn : int = RED
 
     def add_red(self, red_player_id, red_player_name):
         """if a red player hasn't joined the game yet, returns the same game with him joined.
@@ -37,4 +41,28 @@ class Game:
             return f"Finished. winner : {self.winner()}"
         else:
             return "In Progress"
+        
+    def winner(self) -> str:
+        win_list = ['YELLOW', 'RED']
+        full = True
+        for y, row in enumerate(self.board):
+            for x, cell in enumerate(row):
+                if cell == None:
+                    full = False
+                    continue
+                else:
+                    if x > 2:
+                        if cell == self.board[y][x - 1] == self.board[y][x - 2] == self.board[y][x - 3]:
+                            return win_list[cell]
+                    if y > 2:
+                        if cell == self.board[y - 1][x] == self.board[y - 2][x] == self.board[y - 3][x]:
+                            win_list[cell]
+                    if x > 2 and y > 2:
+                        if cell == self.board[y - 1][x - 1] == self.board[y - 2][x - 2] == self.board[y - 3][x - 3]:
+                            win_list[cell]
+                    if x < 4 and y > 2:
+                        if cell == self.board[y - 1][x + 1] == self.board[y - 2][x + 2] == self.board[y - 3][x + 3]:
+                            return win_list[cell]
+        if full:
+            return 'tie'
 
