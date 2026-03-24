@@ -42,7 +42,7 @@ def move_db(db_path : Path) -> str:
 def startup_connection() -> Connection:
     """creates a connection to a connect.db file in the current directory, making one if it doesn't exists and move if if it does not"""
     db_path = Path(__file__).absolute().parent / 'connect.db'
-    print('checking for database...    ', end = '')
+    print('checking for database...           ', end = '')
     if db_exists(db_path):
         print('database found')
         print('checking database validity...      ', end = '')
@@ -55,6 +55,7 @@ def startup_connection() -> Connection:
             print('creating new database')
             create_db(db_path)
     else:
+        print('database not found')
         print('creating new database')
         create_db(db_path)
     print('connecting to database')
