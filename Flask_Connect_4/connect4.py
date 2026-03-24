@@ -20,7 +20,7 @@ class Game:
         else:
             return None
         
-    def add_red(self, yellow_player_id, yellow_player_name):
+    def add_yellow(self, yellow_player_id, yellow_player_name):
         """if a red player hasn't joined the game yet, returns the same game with him joined.
         if a red player has joined the game, return None"""
         if self.yellow_player is None and self.yellow_username is None:
@@ -28,3 +28,13 @@ class Game:
                     yellow_username= yellow_player_name, board= self.board, turn= self.turn)
         else:
             return None
+    
+    def game_status(self):
+        """return the current status of the Game"""
+        if self.yellow_player is None or self.red_player is None:
+            return "Not Started"
+        elif self.winner() is not None:
+            return f"Finished. winner : {self.winner()}"
+        else:
+            return "In Progress"
+
