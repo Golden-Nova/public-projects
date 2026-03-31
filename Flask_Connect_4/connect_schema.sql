@@ -13,5 +13,9 @@ CREATE TABLE games (
     game_type TEXT NOT NULL,
     red_player_id TEXT,
     yellow_player_id TEXT,
-    game BLOB NOT NULL
+    yellow_player_name TEXT,
+    red_player_name TEXT,
+    board BLOB,
+    turn INTEGER,
+    winner INTEGER
 ) STRICT;
